@@ -38,13 +38,6 @@ func (s *Session) Close() error {
 	return nil
 }
 
-// TODO: receiver should transmit a reply
-// seharusnya session bukan yang mengirim reply
-// tapi receiverlah yang ngirim reply dan baca command
-// terus hubungannya session sama receiver apa?
-// ya session itu wadah lalu receiver itu yang kerja
-// lalu clientnya disebut sender, pengirim command
-
 func (s *Session) New() {
 	defer s.Close()
 
@@ -179,40 +172,11 @@ func main() {
 			continue
 		}
 
-		// TOOD: Informasi apa yang bisa kita dapat pada conn?
-		// jadi kita bisa tau addr nya sender
-		// log.Println(conn.RemoteAddr().Network())
-		// log.Println(conn.RemoteAddr().String())
-		// kita juga bisa tau addr nya receiver
-		// log.Println(conn.LocalAddr().Network())
-		// log.Println(conn.LocalAddr().String())
-		// terus informasi apa yang bisa kita dapat dari address tersebut?
-		// bagaimana cara tahu kalo sender itu dari mailicious atau spam?
-		// ssssttt, kapan prosedur pengecekan ini dilakukan saaya belum tau.
-		// jadi kita kumpulkan data dulu aja, baru nanti kelanjutannya gimana
-
 		// start new session of transmission
 		session := Session{
-			id: num,
-			// sender:
+			id:   num,
 			Conn: conn,
 		}
-
-		// receiver:
-		// what receiver do? he read a command and transmit a reply
-		// what tool are needed by receiver to do that?
-		// for read command receiver need bufio.Newreader
-		// to transmit command it need bufio.NewWriter
-		// and both bufio need a conn. so in case of creating
-		// receiver you need conn.
-		// btw, what recevier looks like?
-		// a := rcv.NewReply(220, "'i'll be your good listener")
-		// a.Transmit()
-		// jadi reader bukan inside session cuy, tapi sebagai argumen
-		// dari session.new(receiver, sender)
-		// terus, bagaimana cara dia baca command?
-		// line, err := rcv.ReadLine()
-		//
 
 		// handle every new session concurrently
 		go session.New()
