@@ -175,8 +175,8 @@ func main() {
 		// wait for transmission channel estabilished
 		conn, err := listener.Accept()
 		if err != nil {
-			// bagaimana cara menghandle error nya?
-			log.Printf("listener.Accept(): %s", err.Error())
+			log.Printf("maillennia: Accept: %v", err)
+			continue
 		}
 
 		// TOOD: Informasi apa yang bisa kita dapat pada conn?
