@@ -49,9 +49,8 @@ func (s *Session) New() {
 
 	err := reply("220 Maillennia").Transmit(s.Conn)
 	if err != nil {
-		log.Printf("S%d: %s", s.id, err.Error())
-		// TODO: how handle error on session?
-		// close session?
+		log.Printf("S%d: %v", s.id, err)
+		return
 	}
 
 	for {
