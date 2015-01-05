@@ -19,11 +19,13 @@ const (
 	REPLY_440 = "440 Command not received. Please try again"
 )
 
+// Session represents session on new connection
 type Session struct {
 	id   int
 	Conn net.Conn
 }
 
+// Close close the session
 func (s *Session) Close() error {
 	log.Printf("S%d: Closed", s.id)
 	err := s.Conn.Close()
@@ -33,6 +35,7 @@ func (s *Session) Close() error {
 	return nil
 }
 
+// New create a new session
 func (s *Session) New() {
 	defer s.Close()
 
