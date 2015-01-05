@@ -13,17 +13,6 @@ import (
 	"github.com/pkg/profile"
 )
 
-// TODO: konsep transaction di dalam session
-// wrap semua reply dan command jadi sebuah
-// transaction. misal transaction.r.EHLO
-// transaction.c.EHLO
-// reply & command should created by session
-// how about transaction btw? bukankah transaction
-// lah sebagai wadah untuk command dan reply
-//
-// TODO: add receiver and sender inside Session
-// we MUST know information about sender, so we can
-// decide should process or reject it
 type Session struct {
 	id   int
 	Conn net.Conn
