@@ -56,12 +56,20 @@ func (s *Session) New() {
 		buffReader := bufio.NewReader(s.Conn)
 		line, _, err := buffReader.ReadLine()
 		if err != nil {
-			// if error happen we close the session
-			break
+			err := reply(REPLY_440).Transmit(s.Conn)
+			if err != nil {
+				log.Printf("S%d: %v", s.id, err)
+				return
+			}
 		}
+
+		// TODO: process the command received
+		// see an Verb and Arg
 		c := command(line)
 		log.Println(c.Verb())
 		log.Println(c.Arg())
+
+		// TODO: handle EHLO dan HELO command
 		// switch c.Verb() {
 		// case "HELO", "EHLO":
 		// 	s.handleHello(line.Verb(), line.Arg())
