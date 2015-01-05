@@ -13,6 +13,12 @@ import (
 	"github.com/pkg/profile"
 )
 
+// define replies
+const (
+	REPLY_220 = "220 Maillennia ready"
+	REPLY_440 = "440 Command not received. Please try again"
+)
+
 type Session struct {
 	id   int
 	Conn net.Conn
@@ -36,7 +42,7 @@ func (s *Session) New() {
 	// dan sebelum mengirim QUIT harus reply 503 sebagai
 	// bad sequences of command
 
-	err := reply("220 Maillennia").Transmit(s.Conn)
+	err := reply(REPLY_220).Transmit(s.Conn)
 	if err != nil {
 		log.Printf("S%d: %v", s.id, err)
 		return
